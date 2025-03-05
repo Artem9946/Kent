@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Этот сайт для Кристинки</title>
+</head>
+<body>
+
+<h1>Добро пожаловать милашка!</h1>
+<p>нажми на экран позязя</p>
+
+<audio id="background-music" src="music.mp3" preload="auto"></audio>
+
+<script>
+  document.addEventListener("click", () => {
+    const audio = document.getElementById("background-music");
+    audio.play();
+  });
+</script>
+
+</body>
+</html>
