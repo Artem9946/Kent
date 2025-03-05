@@ -3,30 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Случайные фото</title>
+<title>Фото</title>
 <style>
-  body { background-color: black; color: white; text-align: center; }
-  img { width: 360px; margin: 10px; border: 2px solid white; cursor: pointer; }
+  body { background-color: black; text-align: center; }
+  img { width: 360px; margin: 10px; cursor: pointer; }
 </style>
 </head>
 <body>
 
-<h1>вот твоё будущее.  
-И да кликни в любое место</h1>
 <div id="photo-gallery"></div>
-
-<!-- Плеер с песней, но скрытый -->
 <audio id="my-audio" src="music.mp3" preload="auto"></audio>
 
 <script>
-  // Группы фото с разными шансами
   const photoGroups = [
     { photos: ["image.jpg", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"], chance: 50 },
     { photos: ["image5.jpg", "image6.jpg", "image7.jpg", "image8.jpg", "image9.jpg"], chance: 20 },
     { photos: ["image10.jpg", "image11.jpg", "image12.jpg", "image13.jpg", "image14.jpg"], chance: 30 }
   ];
 
-  // Функция для выбора группы по шансам
   function chooseGroup() {
     const random = Math.random() * 100;
     let cumulativeChance = 0;
@@ -38,21 +32,13 @@
     }
   }
 
-  // Выбираем группу фото
-  let chosenPhotos = chooseGroup();
-
-  // Перемешиваем фото, чтобы они не повторялись
-  chosenPhotos = chosenPhotos.sort(() => Math.random() - 0.5);
-
-  // Находим <div> и добавляем случайные уникальные фото из выбранной группы
+  let chosenPhotos = chooseGroup().sort(() => Math.random() - 0.5);
   const gallery = document.getElementById("photo-gallery");
   const audio = document.getElementById("my-audio");
 
   for (let i = 0; i < 5; i++) {
     const img = document.createElement("img");
-    img.src = chosenPhotos[i];  // Берём уникальные фото
-
-    // Воспроизвести музыку при нажатии на картинку
+    img.src = chosenPhotos[i];
     img.onclick = () => {
       if (audio.paused) {
         audio.play();
@@ -61,7 +47,6 @@
         audio.currentTime = 0;
       }
     };
-
     gallery.appendChild(img);
   }
 </script>
