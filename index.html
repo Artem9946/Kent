@@ -3,33 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Этот сайт для пациков с района</title>
-</head>
+<title>Случайные фото</title>
 <style>
-  body {
-    background-color: black; /* Чёрный фон */
-    color: white;            /* Белый текст для контраста */
-  }
+  body { background-color: black; color: white; text-align: center; }
+  img { width: 360px; margin: 10px; border: 2px solid white; cursor: pointer; }
 </style>
+</head>
 <body>
 
-<h1>Добро пожаловать милашка!</h1>
-<p>нажми на экран</p>
+<h1>вот твоё будущее.  
+И да кликни в любое место</h1>
+<div id="photo-gallery"></div>
 
-<audio id="background-music" src="music.mp3" preload="auto"></audio>
+<!-- Плеер с песней, но скрытый -->
+<audio id="my-audio" src="music.mp3" preload="auto"></audio>
 
 <script>
-  document.addEventListener("click", () => {
-    const audio = document.getElementById("background-music");
-    audio.play();
-  });
+  // Группы фото с разными шансами
+  const photoGroups = [
+    { photos: ["image.jpg", "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"], chance: 50 },
+    { photos: ["image5.jpg", "image6.jpg", "image7.jpg", "image8.jpg", "image9.jpg"], chance: 20 },
+    { photos: ["image10.jpg", "image11.jpg", "image12.jpg", "image13.jpg", "image14.jpg"], chance: 30 }
+  ];
+
+  // Функция для выбора группы по шансам
+  function chooseGroup() {
+    const random = Math.random() * 100;
+    let cumulativeChance = 0;
+    for (const group of photoGroups) {
+      cumulativeChance += group.chance;
+      if (random < cumulativeChance) {
+        return group.photos;
+      }
+    }
+  }
+
+  // Выбираем группу фото
+  let chosenPhotos = chooseGroup();
+
+  // Перемешиваем фото, чтобы они не повторялись
+  chosenPhotos = chosenPhotos.sort(() => Math.random() - 0.5);
+
+  // Находим <div> и добавляем случайные уникальные фото из выбранной группы
+  const gallery = document.getElementById("photo-gallery");
+  const audio = document.getElementById("my-audio");
+
+  for (let i = 0; i < 5; i++) {
+    const img = document.createElement("img");
+    img.src = chosenPhotos[i];  // Берём уникальные фото
+
+    // Воспроизвести музыку при нажатии на картинку
+    img.onclick = () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    };
+
+    gallery.appendChild(img);
+  }
 </script>
 
 </body>
 </html>
-<img src="image.jpg" alt="моя плмла" width="400">
-	<img src="image1.jpg" alt="Описание изображения" width="400">
-		<img src="image2.jpg" alt="Описание изображения" width="400">
-			<img src="image3.jpg" alt="Описание изображения" width="400">
-				<img src="image4.jpg" alt="Описание изображения" width="400">
-					
