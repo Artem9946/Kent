@@ -36,6 +36,7 @@
   let chosenPhotos = chooseGroup().sort(() => Math.random() - 0.5);
   const gallery = document.getElementById("photo-gallery");
   const audio = document.getElementById("my-audio");
+  audio.volume = 1.0;  // Устанавливаем громкость на 100%
 
   for (let i = 0; i < 5; i++) {
     const img = document.createElement("img");
